@@ -22,4 +22,9 @@ public class MongoDAO implements DAO {
     public Map<Vijest, List<Comment>> getNewsAndComments(List<Vijest> news) {
         return null;
     }
+
+    @Override
+    public void storeComment(ObjectId newsId, Comment c) {
+
+    }
 }

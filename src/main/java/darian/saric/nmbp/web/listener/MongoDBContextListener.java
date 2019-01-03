@@ -20,21 +20,17 @@ public class MongoDBContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         //todo provjeriti radi li
-        try {
-            ServletContext ctx = sce.getServletContext();
-            MongoCredential credential = MongoCredential.createPlainCredential(
-                    ctx.getInitParameter("MONGODB_USERNAME"),
-                    ctx.getInitParameter("MONGODB_DATABASE"),
-                    ctx.getInitParameter("MONGODB_PASSWORD").toCharArray());
-            MongoClient mongo = new MongoClient(
-                    ctx.getInitParameter("MONGODB_HOST"),
-                    Integer.parseInt(ctx.getInitParameter("MONGODB_PORT")));
+        ServletContext ctx = sce.getServletContext();
+        MongoCredential credential = MongoCredential.createCredential(
+                ctx.getInitParameter("MONGODB_USERNAME"),
+                ctx.getInitParameter("MONGODB_DATABASE"),
+                ctx.getInitParameter("MONGODB_PASSWORD").toCharArray());
+        MongoClient mongo = new MongoClient(
+                ctx.getInitParameter("MONGODB_HOST"),
+                Integer.parseInt(ctx.getInitParameter("MONGODB_PORT")));
 
-            System.out.println("MongoClient initialized successfully");
-            sce.getServletContext().setAttribute("MONGO_CLIENT", mongo);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException("MongoClient init failed");
-        }
+        System.out.println("MongoClient initialized successfully");
+        sce.getServletContext().setAttribute("MONGO_CLIENT", mongo);
     }
 
 }

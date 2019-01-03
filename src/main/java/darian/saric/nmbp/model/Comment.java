@@ -33,9 +33,10 @@ public class Comment {
         return c;
     }
 
-    public DBObject toDBObject() {
-
-    }
+    //todo ne znam oće li trebati
+//    public DBObject toDBObject() {
+//        return null;
+//    }
 
     public ObjectId getId() {
         return id;
