@@ -1,31 +1,68 @@
 package darian.saric.nmbp.model;
 
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSFile;
+import org.bson.types.ObjectId;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
+import java.util.Date;
+import java.util.List;
 
 public class Vijest {
     //TODO prilagoditi razred za baratanje u mongu
-    private String id;
+    private static final String ID_FIELD = "_id";
+    private static final String AUTHOR_FIELD = "author";
+    private static final String TEXT_FIELD = "text";
+    private static final String PICTURE_FIELD = "picture";
+    private static final String DATE_FIELD = "createdAt";
+    private static final String COMMENTS_FIELD = "comments";
+    private ObjectId id;
     private String author;
     private String text;
     private GridFSFile picture;
-    private DateTimeAtCreation dateTimeAtCreation;
+    private Date createdAt;
+    private List<Comment> comments;
 
 
-    public Vijest(String id, String author, String text, GridFSFile picture, DateTimeAtCreation dateTimeAtCreation) {
-        this.id = id;
-        this.author = author;
-        this.text = text;
-        this.picture = picture;
-        this.dateTimeAtCreation = dateTimeAtCreation;
+    private Vijest() {
+    }
+
+//    public Vijest(String id, String author, String text, GridFSFile picture, DateTimeAtCreation dateTimeAtCreation) {
+//        this.id = ObjectId.
+//        this.author = author;
+//        this.text = text;
+//        this.picture = picture;
+//        this.dateTimeAtCreation = dateTimeAtCreation;
+//    }
+
+    public static Vijest toVijest(DBObject dbObject) throws ClassCastException {
+        //todo zamotaj literale u konstante
+        Vijest v = new Vijest();
+        v.setId((ObjectId) dbObject.get(ID_FIELD));
+        v.setAuthor(String.valueOf(dbObject.get(AUTHOR_FIELD)));
+        v.setText(String.valueOf(dbObject.get(TEXT_FIELD)));
+        v.setPicture((GridFSFile) dbObject.get(PICTURE_FIELD));
+        v.setDateTimeAtCreation((Date) dbObject.get(DATE_FIELD));
+        //noinspection unchecked
+        v.setComments((List<Comment>) dbObject.get(COMMENTS_FIELD));
+        return v;
+    }
+
+    public DBObject toDBObject() {
+        BasicDBObjectBuilder builder = BasicDBObjectBuilder.start()
+                .append(AUTHOR_FIELD, text).append(TEXT_FIELD, text)
+                .append(PICTURE_FIELD, picture).append(DATE_FIELD, createdAt)
+                .append(COMMENTS_FIELD, comments);
+        if (id != null)
+            builder = builder.append(ID_FIELD, id);
+        return builder.get();
     }
 
     public String getId() {
-        return id;
+        return id.toString();
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -53,11 +90,19 @@ public class Vijest {
         this.picture = picture;
     }
 
-    public DateTimeAtCreation getDateTimeAtCreation() {
-        return dateTimeAtCreation;
+    public Date getDateTimeAtCreation() {
+        return createdAt;
     }
 
-    public void setDateTimeAtCreation(DateTimeAtCreation dateTimeAtCreation) {
-        this.dateTimeAtCreation = dateTimeAtCreation;
+    public void setDateTimeAtCreation(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

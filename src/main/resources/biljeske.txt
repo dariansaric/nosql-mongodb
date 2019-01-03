@@ -1,0 +1,59 @@
+Prateći upute za labos, ovdje se zapisuju različite zabilješke i odgovori na pitanja postavljena u PDF-u...
+U čemu je razlika?
+Ima li smisla koristiti insert bez zadanog _id polja?
+Razlika je što save() funkcija vjerojatno interno poziva insert ako zapis s predanim '_id' atributom ne postoji, u suprotnom upisuje promjene
+	-jako važna napomena, ovdje se ne radi ažuriranje navedenih atributa nego potpuni overwrite -> nenavedena polja se brišu iz navedenog objekta
+	-insert ne dopušta duplikate, naravno
+Apsolutno ima smisla koristi 'insert' bez polja '_id', baš zato što se automatski generira, a i tako nećemo izazvati grešku ako slućajno upišemo već postojeći '_id'
+
+Izmjena zapisa
+ako "programiram" izmjenu":
+	var mon = db.counter.findOne({_id:'mon'});
+	mon
+	mon.cnt +=1;
+	db.counter.save(mon)
+	db.counter.find();
+sve lijepo radi, ali to nije atomarna operacija, i kome se da ovo programirati za svaki mrtvi slučaj
+update funkcija: Db.collection.update(query,update,options)
+sve mongo funkcije su na https://docs.mongodb.org/manual/reference/operator/update-field/
+-koristi se $inc funkcija, koja se specificira kao objekt kojemu su polja
+	'argumenti'
+dodavanje novih polja se moze napraviti funkcijom $set, a vrijednost se postavi na null ili postavi nekom funkcijom
+
+$push automatski polje pretvara u kolekciju (dodaje na kraj)
+$pop briše prvi (-1) ili zadnji element iz kolekcije (1)
+$push ne pazi na duplikate, ali $addToSet to osigurava
+
+NAKON IMPORTA svih kolekcija
+
+kad koristim ugnježđene objekte u upitima, ako navodim sva polja jako je važno da poštujem redoslijed
+zato što monogo koristi BSON (Binary JSON) koji serijalizira na određen način  i "poštuje" redoslijed polja u objektima
+sortiranje : -1 silazno, 1 uzlazno
+
+Ideja za efikasan dohvat vijesti:
+periodično skeniranje za promjenama
+lista nasvježijih ID-eva i dohvat vijesti prema tome
+
+
+INDEKSI
+-postoji više vrsta indeksa, ovisno o tome nad kakvim fieldom se rade
+-defaultni _id indeks prema _id elementu, popis indeksa trebao bi biti u system.indexes kolekciji, ali ga kod mene nema :(
+-multikey indeks se automatski izgrađuje ako je field indeksiranja polje
+-kompozitni indeks tipa multikey je moguć samo ako je najviše jedan od odabranih fieldova kolekcija
+-indeksi imaju atribute tipa unique i sl.
+
+BINARNE DATOTEKE
+-za datoteke manje od 16 MB moguće pohraniti direktno u kolekciju
+-inače se koristi naredba mongofiles (primjer korištenja je u pdfu)
+
+REPLIKACIJA
+-primjer koristi tip replikacije Master-2 Slaves, gdje se na početku ne može ništa s replikacijskih čvorova, doslovno se dobiju greške
+-pdf navodi kako napraviti takvu replikaciju, zato ovdje neću ništa pisati
+-nakon upisa naredbe 'rs.slaveOk()' unutar slave čvora mogu čitati iz kolekcija, ali ne mogu pisati
+-nasilnim gašenjem primary čvora, preostali secondary čvorovi će zapeti u konstantnom pokušaju spajanja na primary čvor
+
+Komentari na labos:
+- spajanje na bazu: "mongo -u web -p 'webpass123' --authenticationDatabase 'nmbp' --norc nmbp"
+-treba provjeriti radi li to za moj trenutni kod
+  
+

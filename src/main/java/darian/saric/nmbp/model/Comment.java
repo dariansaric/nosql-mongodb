@@ -1,26 +1,47 @@
 package darian.saric.nmbp.model;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
+import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
+
+import java.util.Date;
 
 public class Comment {
     //todo prilagoditi razred za baratanje u mongu
-    private String id;
+    private static final String ID_FIELD = "_id";
+    private static final String TEXT_FIELD = "text";
+    private static final String DATE_FIELD = "createdAt";
+    private ObjectId id;
     private String text;
-    private DateTimeAtCreation dateTimeAtCreation;
-    private String newsId;
+    private Date createdAt;
 
-    public Comment(String id, String text, DateTimeAtCreation dateTimeAtCreation, String newsId) {
-        this.id = id;
-        this.text = text;
-        this.dateTimeAtCreation = dateTimeAtCreation;
-        this.newsId = newsId;
+    private Comment() {
+
+    }
+//    public Comment(String id, String text, DateTimeAtCreation dateTimeAtCreation, String newsId) {
+//        this.id = id;
+//        this.text = text;
+//        this.dateTimeAtCreation = dateTimeAtCreation;
+//        this.newsId = newsId;
+//    }
+
+    public static Comment toComment(DBObject dbObject) throws ClassCastException {
+        Comment c = new Comment();
+        c.setId((ObjectId) dbObject.get(ID_FIELD));
+        c.setText((String) dbObject.get(TEXT_FIELD));
+        c.setDate((Date) dbObject.get(DATE_FIELD));
+
+        return c;
     }
 
-    public String getId() {
+    public DBObject toDBObject() {
+
+    }
+
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -32,19 +53,11 @@ public class Comment {
         this.text = text;
     }
 
-    public DateTimeAtCreation getDateTimeAtCreation() {
-        return dateTimeAtCreation;
+    public Date getDate() {
+        return createdAt;
     }
 
-    public void setDateTimeAtCreation(DateTimeAtCreation dateTimeAtCreation) {
-        this.dateTimeAtCreation = dateTimeAtCreation;
-    }
-
-    public String getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
+    public void setDate(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
