@@ -55,5 +55,6 @@ REPLIKACIJA
 Komentari na labos:
 - spajanje na bazu: "mongo -u web -p 'webpass123' --authenticationDatabase 'nmbp' --norc nmbp"
 -treba provjeriti radi li to za moj trenutni kod
-  
+-nakon stvaranja vijesti treba stvoriti indeks nad vremenima nastanka
+
 

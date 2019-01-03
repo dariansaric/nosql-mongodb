@@ -37,6 +37,13 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>3.9.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
         <!-- JSTL libraries for JSP pages -->
         <dependency>
             <groupId>jstl</groupId>

@@ -10,12 +10,12 @@ import java.util.List;
 
 public class Vijest {
     //TODO prilagoditi razred za baratanje u mongu
-    private static final String ID_FIELD = "_id";
-    private static final String AUTHOR_FIELD = "author";
-    private static final String TEXT_FIELD = "text";
-    private static final String PICTURE_FIELD = "picture";
-    private static final String DATE_FIELD = "createdAt";
-    private static final String COMMENTS_FIELD = "comments";
+    public static final String ID_FIELD = "_id";
+    public static final String AUTHOR_FIELD = "author";
+    public static final String TEXT_FIELD = "text";
+    public static final String PICTURE_FIELD = "picture";
+    public static final String DATE_FIELD = "createdAt";
+    public static final String COMMENTS_FIELD = "comments";
     private ObjectId id;
     private String author;
     private String text;
