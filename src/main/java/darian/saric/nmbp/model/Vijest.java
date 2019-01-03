@@ -3,6 +3,7 @@ package darian.saric.nmbp.model;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSFile;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
@@ -35,7 +36,7 @@ public class Vijest {
 //        this.dateTimeAtCreation = dateTimeAtCreation;
 //    }
 
-    public static Vijest toVijest(DBObject dbObject) throws ClassCastException {
+    public static Vijest toVijest(Document dbObject) throws ClassCastException {
         //todo zamotaj literale u konstante
         Vijest v = new Vijest();
         v.setId((ObjectId) dbObject.get(ID_FIELD));

@@ -1,6 +1,6 @@
 package darian.saric.nmbp.model;
 
-import com.mongodb.DBObject;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
@@ -24,7 +24,7 @@ public class Comment {
 //        this.newsId = newsId;
 //    }
 
-    public static Comment toComment(DBObject dbObject) throws ClassCastException {
+    public static Comment toComment(Document dbObject) throws ClassCastException {
         Comment c = new Comment();
         c.setId((ObjectId) dbObject.get(ID_FIELD));
         c.setText((String) dbObject.get(TEXT_FIELD));
