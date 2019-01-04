@@ -2,7 +2,6 @@ package darian.saric.nmbp.model;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
-import com.mongodb.gridfs.GridFSFile;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -22,7 +21,7 @@ public class Vijest {
     private String title;
     private String author;
     private String text;
-    private GridFSFile picture;
+    private String picture;
     private Date createdAt;
     private List<Comment> comments;
 
@@ -45,7 +44,7 @@ public class Vijest {
         v.setTitle((String) dbObject.get(TITLE_FIELD));
         v.setAuthor(String.valueOf(dbObject.get(AUTHOR_FIELD)));
         v.setText(String.valueOf(dbObject.get(TEXT_FIELD)));
-        v.setPicture((GridFSFile) dbObject.get(PICTURE_FIELD));
+        v.setPicture((String) dbObject.get(PICTURE_FIELD));
         v.setDateTimeAtCreation((Date) dbObject.get(DATE_FIELD));
         //noinspection unchecked
         v.setComments((List<Comment>) dbObject.get(COMMENTS_FIELD));
@@ -86,11 +85,11 @@ public class Vijest {
         this.text = text;
     }
 
-    public GridFSFile getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(GridFSFile picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 

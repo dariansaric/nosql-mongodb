@@ -16,14 +16,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static darian.saric.nmbp.model.Vijest.*;
-import static darian.saric.nmbp.util.AppConstants.MONGO_DATABASE;
 
 public class MongoDAO implements DAO {
     private static final String COLLECTION_NAME = "news";
     private MongoCollection<Document> collection;
 
-    public MongoDAO(MongoClient client) {
-        collection = client.getDatabase(MONGO_DATABASE).getCollection(COLLECTION_NAME);
+    public MongoDAO(MongoClient client, String databaseName) {
+        collection = client.getDatabase(databaseName).getCollection(COLLECTION_NAME);
     }
 
 //    private List<Vijest> getTop10News() {
@@ -33,6 +32,7 @@ public class MongoDAO implements DAO {
     @Override
     public List<Vijest> getNewsPage(int pageNumber) {
         List<Vijest> news = new ArrayList<>(10);
+
         collection.find()
                 .sort(Sorts.descending(DATE_FIELD))
                 .skip(10 * (pageNumber - 1))

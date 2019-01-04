@@ -7,18 +7,18 @@
     <groupId>darian.saric.nmbp</groupId>
     <artifactId>projekt2</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.maven.plugins</groupId>-->
+    <!--<artifactId>maven-compiler-plugin</artifactId>-->
+    <!--<configuration>-->
+    <!--<source>8</source>-->
+    <!--<target>8</target>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--</build>-->
     <packaging>war</packaging>
 
     <!-- configuration of basic properties -->
@@ -63,6 +63,25 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.12.v20180830</version>
+                <configuration>
+                    <scanIntervalSeconds>100</scanIntervalSeconds>
+                    <reload>manual</reload>
+                    <webApp>
+                        <contextPath>/projekt2</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>nmbp-projekt2</finalName>
+    </build>
 
 
 </project>

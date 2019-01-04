@@ -18,14 +18,14 @@
     </context-param>
     <context-param>
         <param-name>MONGO_PORT</param-name>
-        <param-value>27018</param-value>
+        <param-value>27017</param-value>
     </context-param>
     <context-param>
         <param-name>MONGO_USERNAME</param-name>
         <param-value>web</param-value>
     </context-param>
     <context-param>
-        <param-name>MONGO_PASSOWORD</param-name>
+        <param-name>MONGO_PASSWORD</param-name>
         <param-value>webpass123</param-value>
     </context-param>
     <context-param>

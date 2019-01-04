@@ -6,6 +6,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClients;
+import darian.saric.nmbp.dao.DAOProvider;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -19,7 +20,6 @@ import static darian.saric.nmbp.util.AppConstants.*;
 
 @WebListener
 public class MongoDBContextListener implements ServletContextListener {
-
     public void contextDestroyed(ServletContextEvent sce) {
         ((MongoClient) sce.getServletContext()
                 .getAttribute(MONGO_CLIENT)).close();
@@ -34,7 +34,28 @@ public class MongoDBContextListener implements ServletContextListener {
 //                ctx.getInitParameter(MONGO_USERNAME),
 //                ctx.getInitParameter(MONGO_DATABASE),
 //                ctx.getInitParameter(MONGO_PASSWORD).toCharArray());
-        MongoClient mongo = (MongoClient) MongoClients.create(MongoClientSettings.builder()
+//        MongoClients.create(MongoClientSettings.builder()
+//
+//                .applyToClusterSettings(builder ->
+//                        builder.hosts(Collections.singletonList(
+//                                new ServerAddress(ctx.getInitParameter(MONGO_HOST),
+//                                        Integer.parseInt(ctx.getInitParameter(MONGO_PORT))))))
+//
+//                .credential(MongoCredential.createCredential(
+//                        ctx.getInitParameter(MONGO_USERNAME),
+//                        ctx.getInitParameter(MONGO_DATABASE),
+//                        ctx.getInitParameter(MONGO_PASSWORD).toCharArray()))
+//
+//                .codecRegistry(CodecRegistries.fromRegistries(
+//                        MongoClient.getDefaultCodecRegistry(),
+//                        CodecRegistries.fromProviders(
+//                                PojoCodecProvider.builder()
+//                                        .automatic(true).build())))
+//
+//                .build());
+
+//        System.out.println("MongoClient initialized successfully");
+        sce.getServletContext().setAttribute(MONGO_CLIENT, MongoClients.create(MongoClientSettings.builder()
 
                 .applyToClusterSettings(builder ->
                         builder.hosts(Collections.singletonList(
@@ -52,10 +73,9 @@ public class MongoDBContextListener implements ServletContextListener {
                                 PojoCodecProvider.builder()
                                         .automatic(true).build())))
 
-                .build());
-
-        System.out.println("MongoClient initialized successfully");
-        sce.getServletContext().setAttribute(MONGO_CLIENT, mongo);
+                .build()));
+        DAOProvider.initDAO((com.mongodb.client.MongoClient) sce.getServletContext().getAttribute(MONGO_CLIENT),
+                sce.getServletContext().getInitParameter(MONGO_DATABASE));
     }
 
 }
