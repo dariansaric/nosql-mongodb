@@ -12,12 +12,14 @@ import java.util.List;
 public class Vijest {
     //TODO prilagoditi razred za baratanje u mongu
     public static final String ID_FIELD = "_id";
+    public static final String TITLE_FIELD = "title";
     public static final String AUTHOR_FIELD = "author";
     public static final String TEXT_FIELD = "text";
     public static final String PICTURE_FIELD = "picture";
     public static final String DATE_FIELD = "createdAt";
     public static final String COMMENTS_FIELD = "comments";
     private ObjectId id;
+    private String title;
     private String author;
     private String text;
     private GridFSFile picture;
@@ -40,6 +42,7 @@ public class Vijest {
         //todo zamotaj literale u konstante
         Vijest v = new Vijest();
         v.setId((ObjectId) dbObject.get(ID_FIELD));
+        v.setTitle((String) dbObject.get(TITLE_FIELD));
         v.setAuthor(String.valueOf(dbObject.get(AUTHOR_FIELD)));
         v.setText(String.valueOf(dbObject.get(TEXT_FIELD)));
         v.setPicture((GridFSFile) dbObject.get(PICTURE_FIELD));
@@ -105,5 +108,13 @@ public class Vijest {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

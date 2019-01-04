@@ -26,10 +26,9 @@ public class MongoDAO implements DAO {
         collection = client.getDatabase(MONGO_DATABASE).getCollection(COLLECTION_NAME);
     }
 
-    @Override
-    public List<Vijest> getTop10News() {
-        return getNewsPage(1);
-    }
+//    private List<Vijest> getTop10News() {
+//        return getNewsPage(1);
+//    }
 
     @Override
     public List<Vijest> getNewsPage(int pageNumber) {

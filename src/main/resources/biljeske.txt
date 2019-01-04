@@ -57,4 +57,29 @@ Komentari na labos:
 -treba provjeriti radi li to za moj trenutni kod
 -nakon stvaranja vijesti treba stvoriti indeks nad vremenima nastanka
 
+javascript za skrivanje komentara:
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $(".fora").click(function(){
+    $("#" + $(this).text()).toggle();
+  });
+});
+</script>
+</head>
+<body>
+
+<p id="1">If you click on me, I will disappear.</p>
+<p id ="2">Click me away!</p>
+<p id="3">Click me too!</p>
+<button class="fora" text="stisni me">1</button>
+<button class="fora" text="stisni me">2</button>
+<button class="fora" text="stisni me">3</button>
+</body>
+</html>
+
+
 

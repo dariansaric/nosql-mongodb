@@ -1,7 +1,6 @@
 package darian.saric.nmbp.model;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
 
 import java.util.Date;
 
@@ -10,23 +9,20 @@ public class Comment {
     private static final String ID_FIELD = "_id";
     private static final String TEXT_FIELD = "text";
     private static final String DATE_FIELD = "createdAt";
-    private ObjectId id;
     private String text;
     private Date createdAt;
 
     private Comment() {
 
     }
-//    public Comment(String id, String text, DateTimeAtCreation dateTimeAtCreation, String newsId) {
-//        this.id = id;
-//        this.text = text;
-//        this.dateTimeAtCreation = dateTimeAtCreation;
-//        this.newsId = newsId;
-//    }
+
+    public Comment(String text) {
+        this.text = text;
+        this.createdAt = new Date();
+    }
 
     public static Comment toComment(Document dbObject) throws ClassCastException {
         Comment c = new Comment();
-        c.setId((ObjectId) dbObject.get(ID_FIELD));
         c.setText((String) dbObject.get(TEXT_FIELD));
         c.setDate((Date) dbObject.get(DATE_FIELD));
 
@@ -37,14 +33,6 @@ public class Comment {
 //    public DBObject toDBObject() {
 //        return null;
 //    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
 
     public String getText() {
         return text;

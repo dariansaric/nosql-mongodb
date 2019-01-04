@@ -7,4 +7,5 @@ public interface AppConstants {
     String MONGO_PASSWORD = "MONGO_PASSWORD";
     String MONGO_HOST = "MONGO_HOST";
     String MONGO_PORT = "MONGO_PORT";
+    String PAGES_PATH = "/WEB-INF/pages/";
 }

@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 import java.util.List;
 
 public interface DAO {
-    List<Vijest> getTop10News();
+//    List<Vijest> getTop10News();
 
     List<Vijest> getNewsPage(int pageNumber);
 
