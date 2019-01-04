@@ -31,6 +31,7 @@ public class IndexServlet extends HttpServlet {
         try {
             if (req.getParameter(PAGE_PARAMETER) != null) {
                 page = Integer.parseInt(req.getParameter(PAGE_PARAMETER));
+                page = page < 1 ? 1 : page;
             }
         } catch (NumberFormatException ignored) {
         }
@@ -48,13 +49,13 @@ public class IndexServlet extends HttpServlet {
         int page;
         try {
             page = Integer.parseInt(req.getParameter(PAGE_PARAMETER));
+            page = page < 1 ? 1 : page;
         } catch (NumberFormatException e) {
             resp.sendError(400);
             return;
         }
 
         ObjectId id = new ObjectId(req.getParameter(NEWS_ID_PARAMETER));
-
         DAO dao = getDAO();
         dao.storeComment(id, new Comment(req.getParameter(COMMENT_ATTRIBUTE)));
 
@@ -64,6 +65,7 @@ public class IndexServlet extends HttpServlet {
     private void generateResponse(int page, DAO dao, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Vijest> vijesti = dao.getNewsPage(page);
 
+        req.setAttribute(PAGE_PARAMETER, page);
         req.setAttribute(NEWS_ATTRIBUTE, vijesti);
         req.getRequestDispatcher(PAGES_PATH + "index.jsp").forward(req, resp);
     }

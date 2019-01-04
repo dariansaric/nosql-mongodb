@@ -5,6 +5,7 @@ import com.mongodb.DBObject;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,14 +41,19 @@ public class Vijest {
     public static Vijest toVijest(Document dbObject) throws ClassCastException {
         //todo zamotaj literale u konstante
         Vijest v = new Vijest();
-        v.setId((ObjectId) dbObject.get(ID_FIELD));
+        v.setId(new ObjectId(String.valueOf(dbObject.get(ID_FIELD))));
         v.setTitle((String) dbObject.get(TITLE_FIELD));
         v.setAuthor(String.valueOf(dbObject.get(AUTHOR_FIELD)));
         v.setText(String.valueOf(dbObject.get(TEXT_FIELD)));
         v.setPicture((String) dbObject.get(PICTURE_FIELD));
         v.setDateTimeAtCreation((Date) dbObject.get(DATE_FIELD));
         //noinspection unchecked
-        v.setComments((List<Comment>) dbObject.get(COMMENTS_FIELD));
+        List<Document> l = (List<Document>) dbObject.get(COMMENTS_FIELD);
+        List<Comment> cl = new ArrayList<>(l.size());
+        for (Document d : l) {
+            cl.add(new Comment(d.getString("text"), d.getDate("date")));
+        }
+        v.setComments(cl);
         return v;
     }
 

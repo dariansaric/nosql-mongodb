@@ -39,6 +39,11 @@ public class MongoDAO implements DAO {
                 .limit(10)
                 .into(new ArrayList<>())
                 .forEach(document -> news.add(Vijest.toVijest(document)));
+//        news.forEach(n -> {
+//            List<Comment> l = n.getComments();
+//            List<Comment> newL = new ArrayList<>(l.size());
+//
+//        });
         return news;
     }
 
@@ -59,8 +64,8 @@ public class MongoDAO implements DAO {
 
     @Override
     public void storeComment(ObjectId newsId, Comment c) {
-        collection.findOneAndUpdate(Filters.eq(ID_FIELD, newsId),
-                Updates.addToSet(COMMENTS_FIELD, c));
+        collection.updateOne(Filters.eq(ID_FIELD, newsId),
+                Updates.push(COMMENTS_FIELD, c));
 
     }
 }
