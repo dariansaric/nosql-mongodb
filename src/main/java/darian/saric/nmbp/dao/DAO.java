@@ -10,4 +10,5 @@ public interface DAO {
     List<Vijest> getNewsPage(int pageNumber);
 
     void storeComment(ObjectId newsId, Comment c);
+
 }

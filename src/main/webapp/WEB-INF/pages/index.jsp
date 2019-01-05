@@ -18,7 +18,7 @@
     <p>${n.title}</p>
     <p>${n.text}</p>
     <p>${n.author}</p>
-    <p>slika još nije dostupna</p>
+    <img src="${n.picture}" alt="slika nije dostupna">
     <ul>
         <c:forEach var="c" items="${n.comments}">
             <li>${c}</li>

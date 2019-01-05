@@ -3,7 +3,6 @@ package darian.saric.nmbp.dao;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 import darian.saric.nmbp.model.Comment;
@@ -11,8 +10,8 @@ import darian.saric.nmbp.model.Vijest;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static darian.saric.nmbp.model.Vijest.*;
@@ -38,7 +37,13 @@ public class MongoDAO implements DAO {
                 .skip(10 * (pageNumber - 1))
                 .limit(10)
                 .into(new ArrayList<>())
-                .forEach(document -> news.add(Vijest.toVijest(document)));
+                .forEach(document -> {
+                    try {
+                        news.add(Vijest.toVijest(document));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
 //        news.forEach(n -> {
 //            List<Comment> l = n.getComments();
 //            List<Comment> newL = new ArrayList<>(l.size());
@@ -47,15 +52,6 @@ public class MongoDAO implements DAO {
         return news;
     }
 
-    @Override
-    public List<Comment> getCommentsForNews(ObjectId newsId) {
-        List<Comment> comments = new LinkedList<>();
-        collection.find(Filters.eq(ID_FIELD, newsId))
-                .projection(Projections.fields(Projections.include(COMMENTS_FIELD)))
-                .into(new ArrayList<>()).forEach(d -> comments.add(Comment.toComment(d)));
-
-        return comments;
-    }
 
 //    @Override
 //    public Map<Vijest, List<Comment>> getNewsAndComments(List<Vijest> news) {

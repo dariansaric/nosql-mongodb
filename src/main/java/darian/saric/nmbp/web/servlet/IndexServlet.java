@@ -18,7 +18,7 @@ import static darian.saric.nmbp.util.AppConstants.PAGES_PATH;
 
 @WebServlet(urlPatterns = {"/", "/home"}, name = "index")
 public class IndexServlet extends HttpServlet {
-    //todo testirati i napraviti map-reduce servlete
+    //todo pospremiti slike u zasebnu kolekciju i jednim servletom ih nasumično dohvaćati
     private static final String NEWS_ID_PARAMETER = "id";
     private static final String PAGE_PARAMETER = "page";
     private static final String NEWS_ATTRIBUTE = "news";
