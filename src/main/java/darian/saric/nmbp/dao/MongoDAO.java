@@ -62,6 +62,5 @@ public class MongoDAO implements DAO {
     public void storeComment(ObjectId newsId, Comment c) {
         collection.updateOne(Filters.eq(ID_FIELD, newsId),
                 Updates.push(COMMENTS_FIELD, c));
-
     }
 }

@@ -1,13 +1,12 @@
 [
   {
-    "repeat(5, 10)": {
-      "_id": "{{objectId()}}",
-      "author": "{{firstName()}} {{lastName()}}",
-      "title": "{{lorem(1,\"words\")}}",
-      "text": "{{lorem(3, \"paragraphs\")}}",
-      "comments": [],
-      "createdAt": "{{date(new Date(1970,0,1), new Date())}}",
-      "picture": "{{random(\"https://cdn.pixabay.com/photo/2018/12/28/01/34/rum-3898745_960_720.jpg\",\"https://cdn.pixabay.com/photo/2018/08/06/16/30/mushroom-3587888_960_720.jpg\",\"https://cdn.pixabay.com/photo/2018/12/16/18/12/open-fire-3879031_960_720.jpg\",\"https://cdn.pixabay.com/photo/2018/09/12/12/14/photographer-3672010__340.jpg\",\"https://cdn.pixabay.com/photo/2018/10/07/19/25/walk-3731094__340.jpg\",\"https://cdn.pixabay.com/photo/2016/08/14/18/27/sailing-boat-1593613__340.jpg\")}}"
+    "repeat(10000, 10000)": {
+      author: '{{firstName()}} {{surname()}}',
+      title: '{{lorem(1,"words")}}',
+      text: '{{lorem(3, "paragraphs")}}',
+      comments: [],
+      createdAt: '{{date(new Date(1970,0,1), new Date())}}',
+      picture: '{{random("https://cdn.pixabay.com/photo/2018/12/28/01/34/rum-3898745_960_720.jpg","https://cdn.pixabay.com/photo/2018/08/06/16/30/mushroom-3587888_960_720.jpg","https://cdn.pixabay.com/photo/2018/12/16/18/12/open-fire-3879031_960_720.jpg","https://cdn.pixabay.com/photo/2018/09/12/12/14/photographer-3672010__340.jpg","https://cdn.pixabay.com/photo/2018/10/07/19/25/walk-3731094__340.jpg","https://cdn.pixabay.com/photo/2016/08/14/18/27/sailing-boat-1593613__340.jpg")}}'
     }
   }
 ]
