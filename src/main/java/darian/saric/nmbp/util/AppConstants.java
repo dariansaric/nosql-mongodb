@@ -8,4 +8,6 @@ public interface AppConstants {
     String MONGO_HOST = "MONGO_HOST";
     String MONGO_PORT = "MONGO_PORT";
     String PAGES_PATH = "/WEB-INF/pages/";
+    String COLLECTION_NAME = "news";
+
 }

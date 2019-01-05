@@ -16,9 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static darian.saric.nmbp.model.Vijest.*;
+import static darian.saric.nmbp.util.AppConstants.COLLECTION_NAME;
 
 public class MongoDAO implements DAO {
-    private static final String COLLECTION_NAME = "news";
     private MongoCollection<Document> collection;
 
     public MongoDAO(MongoClient client, String databaseName) {
